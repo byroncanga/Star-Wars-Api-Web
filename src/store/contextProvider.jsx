@@ -20,6 +20,7 @@ const ContextProvider = ({ children }) => {
     state.actions.getCharacters("people", "characters");
     state.actions.getCharacters("planets", "planets");
     state.actions.getCharacters("vehicles", "vehicles");
+    state.actions.loadFavorites();
   }, []);
 
   return <Context.Provider value={state}>{children}</Context.Provider>;

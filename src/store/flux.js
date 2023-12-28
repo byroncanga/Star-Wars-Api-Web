@@ -39,12 +39,32 @@ const getState = ({ getStore, getActions, setStore }) => {
         // Evitar duplicados en favoritos
         const isAlreadyFavorite = store.favorites.some(
           (element) =>
-          element.item.result._id === item.result._id && element.itemType === itemType
+            element.item.result._id === item.result._id &&
+            element.itemType === itemType
         );
 
         if (!isAlreadyFavorite) {
-          setStore({ favorites: [...store.favorites, newFavorite] });
+          const updatedFavorites = [...store.favorites, newFavorite];
+          setStore({ favorites: updatedFavorites });
+          localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
         }
+      },
+      //carga los favoritos del local storage al iniciar la pagina
+      loadFavorites: () => {
+        const localFavorites = localStorage.getItem("favorites");
+        if (localFavorites) {
+          const favorites = JSON.parse(localFavorites);
+          setStore({ favorites: favorites });
+        }
+      },
+      //elimina un item de la lista de favoritos y actualiza el estado
+      removeFavorite: (uid) => {
+        const store = getStore();
+        const updatedFavorites = store.favorites.filter(
+          (favorite) => favorite.item.result.uid !== uid
+        );
+        setStore({ favorites: updatedFavorites });
+        localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
       },
     },
   };

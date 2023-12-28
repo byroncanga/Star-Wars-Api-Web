@@ -96,24 +96,18 @@ export default function App() {
               {(onClose) => (
                 <>
                   <ModalHeader className="flex flex-col gap-1">
-                    Modal Title
+                    Your Favorities
                   </ModalHeader>
                   <ModalBody>
                     <Favorites />
                   </ModalBody>
                   <ModalFooter>
+                    
                     <Button
-                      color="foreground"
-                      variant="light"
+                      className="bg-[#f2ab4e] shadow-lg shadow-indigo-400/20"
                       onPress={onClose}
                     >
                       Close
-                    </Button>
-                    <Button
-                      className="bg-[#f2ab4e] shadow-lg shadow-indigo-500/20"
-                      onPress={onClose}
-                    >
-                      Action
                     </Button>
                   </ModalFooter>
                 </>
