@@ -1,25 +1,36 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { Context } from "../store/contextProvider";
+import React from "react";
+import Characters from "../components/Characters"
+import Planets from "../components/Planets"
+import Hero from "../components/Hero"
+import Banner from "../components/Banner";
+import Vehicles from "../components/Vehicles";
+import BannerVideo from "../components/BannerVideo";
+
+
 const Home = () => {
-  const { store, actions } = useContext(Context);
   return (
-    <div className="container">
-      <ul>
-        <li>
-          <Link to="/hooks">Custom Hooks</Link>
-        </li>
-      </ul>
+    <div>
+      <Hero />
+      <div className="container mx-auto">
+        <h4 className="p-6 ml-4">People</h4>
+        <Characters />
+      </div>
+      <div className="container mx-auto py-6">
+        <Banner/>
+      </div>
+      <div className="container mx-auto py-6">
+        <h4 className="ml-9 mb-6">PLanets</h4>
+        <Planets />
+      </div>
       <div>
-        <h1>Contador</h1>
-        <div className="flex flex-center">
-          <button onClick={actions.decrement}>Decrementar</button>
-          <p>Contador: {store.counter}</p>
-          <button onClick={actions.increment}>Incrementar</button>
-        </div>
+       <BannerVideo />
+      </div>
+      <div className="container mx-auto py-6">
+        <h4 className="ml-9 mb-6">Vehicles</h4>
+        <Vehicles />
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Home
