@@ -12,7 +12,7 @@ const Favorites = () => {
   return (
     <div>
       <ul>
-        {store.favorites.map((favorite, index) => {
+        {store.favorites.map((favorite) => {
           return (
             <div key={favorite.item.result._id}>
               <li>

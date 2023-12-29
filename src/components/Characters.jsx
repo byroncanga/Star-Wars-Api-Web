@@ -4,6 +4,8 @@ import { Context } from "../store/contextProvider";
 import Slider from "react-slick";
 import { HeartIcon } from "./HeartIcon";
 import { Spinner } from "@nextui-org/react";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css'
 import {
   Card,
   CardHeader,
@@ -19,9 +21,21 @@ import "slick-carousel/slick/slick-theme.css";
 const Characters = () => {
   const { store, actions } = useContext(Context);
   let navigate = useNavigate();
+  const notify = () => {
+    toast.success('Successfully Added!', {
+      position: "bottom-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
@@ -84,7 +98,7 @@ const Characters = () => {
                           aria-label="Like"
                           className="hover:bg-red-600"
                           onClick={() =>{
-                            actions.addToFavorites(item, "character");
+                            actions.addToFavorites(item, "character");notify();
                             }
                           }
                         >
@@ -115,6 +129,7 @@ const Characters = () => {
           </div>
         )}
       </Slider>
+      <ToastContainer />
     </>
   );
 };
