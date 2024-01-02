@@ -6,6 +6,7 @@ import { HeartIcon } from "./HeartIcon";
 import { Spinner } from "@nextui-org/react";
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css'
+
 import {
   Card,
   CardHeader,
@@ -21,9 +22,11 @@ import "slick-carousel/slick/slick-theme.css";
 const Characters = () => {
   const { store, actions } = useContext(Context);
   let navigate = useNavigate();
-  const notify = () => {
-    toast.success('Successfully Added!', {
-      position: "bottom-center",
+
+
+  const notify = (name) => {
+    toast.success(`'Successfully Added! ${name}`, {
+      position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -65,7 +68,7 @@ const Characters = () => {
         {store.characters.length > 0 ? (
           store.characters.map((item) => {
             return (
-              <div key={item.result.uid} className="flex">
+              <div key={item.result.uid} className="flex" >
                 <div className="max-w-[900px] gap-2 grid grid-cols-12 px-8">
                   <Card
                     isFooterBlurred
@@ -98,7 +101,7 @@ const Characters = () => {
                           aria-label="Like"
                           className="hover:bg-red-600"
                           onClick={() =>{
-                            actions.addToFavorites(item, "character");notify();
+                            actions.addToFavorites(item, "character");notify(item.result.properties.name);
                             }
                           }
                         >
@@ -106,7 +109,10 @@ const Characters = () => {
                         </Button>
                         <div className="flex flex-col">
                           <p className="text-tiny text-white/60">
-                            {item.result.description}
+                            Birth Year:
+                          </p>
+                          <p>
+                            {item.result.properties.birth_year}
                           </p>
                         </div>
                       </div>

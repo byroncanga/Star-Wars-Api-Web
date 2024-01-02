@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Context } from "../store/contextProvider";
 import { Divider, Button } from "@nextui-org/react";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const Details = () => {
   const { store, actions } = useContext(Context);
@@ -21,6 +23,7 @@ const Details = () => {
   };
   useEffect(() => {
     idPlanet();
+    Aos.init({duration: 2000});
   }, [params.id, homeworld]);
 
   const planetFilters = store.planets.find(
@@ -37,8 +40,8 @@ const Details = () => {
             <main className="relative z-20 w-full mt-8 md:flex md:items-center xl:mt-12">
               <div className="absolute w-full bg-blue-300/10 backdrop-blur-sm border-1 border-red-50/10 -z-10 md:h-96 rounded-2xl shadow-lg"></div>
 
-              <div className="w-full p-6 bg-slate-900  md:flex md:items-center rounded-2xl md:bg-transparent md:p-0 lg:px-12 md:justify-evenly">
-                <div>
+              <div  className="w-full p-6 bg-slate-900  md:flex md:items-center rounded-2xl md:bg-transparent md:p-0 lg:px-12 md:justify-evenly">
+                <div data-aos="fade-right">
                   <img
                     className="h-24 w-24 md:mx-6 rounded-full object-cover shadow-lg md:h-[32rem] md:w-80 lg:h-[36rem] lg:w-[26rem] md:rounded-2xl"
                     src={`https://starwars-visualguide.com/assets/img/characters/${charactersFilters.result.uid}.jpg`}
@@ -48,7 +51,7 @@ const Details = () => {
                     }}
                   />
                 </div>
-                <div className="mt-2 md:mx-6">
+                <div className="mt-2 md:mx-6" data-aos="fade-left">
                   <div>
                     <p className="text-xl font-medium tracking-tight text-white">
                       {propiedad.name}
@@ -83,21 +86,21 @@ const Details = () => {
                   </div>
                   <Button
                     color="default"
-                    variant="faded"
+                    variant="ghost"
                     aria-label="Like"
                     className="hover:bg-red-600 my-3"
                     onClick={() => {
                       actions.addToFavorites(charactersFilters, "character");
                     }}
-                  >
-                    Favorites
+                  ><i className="fa-regular fa-heart"></i>
+                    Add Favorites
                   </Button>
                 </div>
               </div>
             </main>
           </div>
         </section>
-        <footer className="w-full">
+        <footer className="w-full" data-aos="fade-up">
           <div className=" md:flex justify-center gap-6 mx-4">
             {planetFilters ? (
               <div className="my-12 md:flex ">
@@ -115,7 +118,7 @@ const Details = () => {
                 <div className="max-w-2xl px-8 py-4 bg-white rounded-r-lg shadow-md dark:bg-gray-900">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-light text-gray-600 dark:text-gray-400">
-                      PLANET
+                    {propiedad.name} Planet
                     </span>
                   </div>
                   <div className="mt-2">

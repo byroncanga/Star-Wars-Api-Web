@@ -8,6 +8,7 @@ const Favorites = () => {
   const removeFavorite = (element) => {
     actions.removeFavorite(element.item.result.uid);
   };
+ 
 
   return (
     <div>
@@ -16,9 +17,10 @@ const Favorites = () => {
           return (
             <div key={favorite.item.result._id}>
               <li>
-                <div className="flex justify-between py-2">
+                <div className="flex justify-between py-2 items-center">
                   <div>
                     <p>Name: {favorite.item.result.properties.name}</p>
+                    <p>Type: {favorite.itemType}</p>
                   </div>
                   <div>
                     <Button

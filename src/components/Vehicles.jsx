@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/contextProvider";
 import Slider from "react-slick";
 import { HeartIcon } from "./HeartIcon";
 import { Spinner } from "@nextui-org/react";
+import { toast } from 'react-toastify';
+import Aos, { init } from "aos";
+import "aos/dist/aos.css";
+
 import {
   Card,
   CardHeader,
@@ -19,6 +23,23 @@ import "slick-carousel/slick/slick-theme.css";
 const Vehicles = () => {
   const { store, actions } = useContext(Context);
   let navigate = useNavigate();
+  
+  useEffect(() => {
+    Aos.init({duration: 1000});
+  })
+
+  const notify = (name) => {
+    toast.success(`Successfully Added!  ${name}`, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+  }
 
   const settings = {
     dots: false,
@@ -50,7 +71,7 @@ const Vehicles = () => {
         {store.vehicles.length > 0 ? (
           store.vehicles.map((item) => {
             return (
-              <div key={item.result.uid} className="flex">
+              <div key={item.result.uid} className="flex"  data-aos="zoom-out-down">
                 <div className="max-w-[900px] gap-2 grid grid-cols-12 px-8">
                   <Card
                     isFooterBlurred
@@ -83,22 +104,23 @@ const Vehicles = () => {
                           variant="faded"
                           aria-label="Like"
                           className="hover:bg-red-600"
-                          onClick={() =>
-                            actions.addToFavorites(item, "vehicles")
-                          }
+                          onClick={() =>{
+                            actions.addToFavorites(item, "vehicles"); notify(item.result.properties.name);
+                          }}
                         >
                           <HeartIcon />
                         </Button>
                         <div className="flex flex-col">
                           <p className="text-tiny text-white/60">
-                            {item.result.description}
+                           Manufacturer:                                                       
                           </p>
+                          <p>{item.result.properties.manufacturer}  </p>
                         </div>
                       </div>
                       <Button
                         radius="full"
                         size="sm"
-                        onClick={() => navigate(`/details/${item.result.uid}`)}
+                        onClick={() => navigate(`/detailsvehicles/${item.result.uid}`)}
                       >
                         Detalles
                       </Button>

@@ -1,5 +1,6 @@
 import React from "react";
 import Favorites from "./Favorites";
+import { useNavigate } from "react-router-dom";
 import {
   Navbar,
   NavbarMenuToggle,
@@ -21,19 +22,9 @@ import {
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const navigate = useNavigate();
 
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -52,25 +43,11 @@ export default function App() {
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="#">
+          <Link color="foreground" href="#" onClick={() => navigate("/")}>
             Home
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Peoples
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Vehicles
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Planets
-          </Link>
-        </NavbarItem>
+       
       </NavbarContent>
 
       <NavbarContent justify="end">
@@ -85,7 +62,7 @@ export default function App() {
             radius="lg"
             classNames={{
               body: "py-6",
-              backdrop: "bg-[#292f46]/60 backdrop-opacity-40",
+              backdrop: "bg-[#292f46]/80 backdrop-opacity-10",
               base: "border-[#292f46] bg-[#19172c] dark:bg-[#19172c] text-[#a8b0d3]",
               header: "border-b-[1px] border-[#292f46]",
               footer: "border-t-[1px] border-[#292f46]",
@@ -118,24 +95,9 @@ export default function App() {
       </NavbarContent>
 
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className="w-full"
-              color={
-                index === 2
-                  ? "warning"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              href="#"
-              size="lg"
-            >
-              {item}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+      <Link color="foreground"  onClick={() => navigate("/")}>
+            Home
+          </Link>
       </NavbarMenu>
     </Navbar>
   );
