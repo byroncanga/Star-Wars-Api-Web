@@ -1,5 +1,5 @@
 import React from 'react'
-import video from "../img/Startw.mp4"
+import video from "../img/startw.mp4"
 
 const BannerVideo = () => {
   return (
